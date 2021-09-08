@@ -27,8 +27,8 @@ class Network{
   }
 
    static Future<String> POST(String api, Map<String, String> params) async{
-     var uri = Uri.http(BASE, api);
-     var response = await post(uri, body: jsonEncode(params));
+     var uri = Uri.http(BASE, api, params);
+     var response = await post(uri, );
      if(response.statusCode == 200 || response.statusCode == 201){
        return response.body;
      }
@@ -36,8 +36,8 @@ class Network{
    }
 
    static Future<String> PUT(String api, Map<String, String> params) async{
-     var uri = Uri.http(BASE, api);
-     var response = await put(uri, body: jsonEncode(params));
+     var uri = Uri.http(BASE, api, params);
+     var response = await put(uri,);
      if(response.statusCode == 200){
        return response.body;
      }
@@ -45,7 +45,7 @@ class Network{
    }
 
    static Future<String> DELETE(String api, Map<String, String> params) async{
-     var uri = Uri.http(BASE, api);
+     var uri = Uri.http(BASE, api,);
      var response = await delete(uri);
      if(response.statusCode == 200){
        return response.body;

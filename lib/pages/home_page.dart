@@ -40,6 +40,13 @@ class _HomePageState extends State<HomePage> {
       _showResponse(response),
     });
   }
+
+  void _apiDeleleteList(Post post){
+    Network.DELETE(Network.API_DELETE + post.id.toString(),  Network.paramsEmpty()).then((response) => {
+      print(response),
+      _showResponse(response),
+    });
+  }
    _showResponse(String response){
     setState(() {
       data = response;
@@ -50,8 +57,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   var post  = new Post( employee_name: 'Abduganiyev', employee_salary: 5000, employee_age: 22 );
-    _apiPostCreate(post);
+   var post  = new Post( id: 2 );
+    _apiDeleleteList(post);
   }
 
   @override
