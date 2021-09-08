@@ -9,24 +9,24 @@ class Network{
    static String BASE = "dummy.restapiexample.com";
 
    // http Apis //
-  static  String API_GET1 = "/employees";
-  static  String API_GET2 = "/employee/719";  //{id}
-  static  String API_POST = "/create";
-  static  String API_PUT = "/update/";   //{id}
-  static  String API_DELETE = "/delete/719";  //{id}
+  static  String API_GET1 = "/api/v1/employees";
+  static  String API_GET2 = "/api/v1/employee/";  //{id}
+  static  String API_POST = "/api/v1/create";
+  static  String API_PUT = "/api/v1/update/";   //{id}
+  static  String API_DELETE = "/api/v1/delete/";  //{id}
 
 
    // http requests //
   static Future<String> GET(String api, Map<String, String> params ) async{
     var uri = Uri.http(BASE, api, params);
-     var response = await get(uri);
+     var response = await get(uri, );
      if(response.statusCode == 200){
        return response.body;
      }
      return null;
   }
 
-   static Future<String> POST(String api, Map<String, String> params ) async{
+   static Future<String> POST(String api, Map<String, String> params) async{
      var uri = Uri.http(BASE, api);
      var response = await post(uri, body: jsonEncode(params));
      if(response.statusCode == 200 || response.statusCode == 201){
@@ -35,7 +35,7 @@ class Network{
      return null;
    }
 
-   static Future<String> PUT(String api, Map<String, String> params ) async{
+   static Future<String> PUT(String api, Map<String, String> params) async{
      var uri = Uri.http(BASE, api);
      var response = await put(uri, body: jsonEncode(params));
      if(response.statusCode == 200){
@@ -44,7 +44,7 @@ class Network{
      return null;
    }
 
-   static Future<String> DELETE(String api, Map<String, String> params ) async{
+   static Future<String> DELETE(String api, Map<String, String> params) async{
      var uri = Uri.http(BASE, api);
      var response = await delete(uri);
      if(response.statusCode == 200){
@@ -62,9 +62,9 @@ class Network{
    static Map<String, String> paramsCreate(Post post){
     Map<String, String> params = new Map();
     params.addAll({
-      "name" : post.name,
-      "salary": post.salary.toString(),
-      "age" : post.age.toString(),
+      "employee_name" : post.employee_name,
+      "employee_salary": post.employee_salary.toString(),
+      "employee_age" : post.employee_age.toString(),
     });
     return params;
    }
@@ -72,9 +72,10 @@ class Network{
     static Map<String, String> paramsUpdate(Post post) {
     Map<String, String> params = Map();
     params.addAll({
-      "name" : post.name,
-      "salary": post.salary.toString(),
-      "age" : post.age.toString()
+      "id" : post.id.toString(),
+      "employee_name" : post.employee_name,
+      "employee_salary": post.employee_salary.toString(),
+      "employee_age" : post.employee_age.toString()
     });
     return params;
     }

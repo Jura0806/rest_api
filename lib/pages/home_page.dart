@@ -11,16 +11,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  String data;
+  String data ;
 
-  void apiPostList(){
+  void _apiPostList(){
     Network.GET(Network.API_GET1,  Network.paramsEmpty()).then((response) => {
       print(response),
       _showResponse(response),
     });
   }
-  void apiPostList2(Post post){
+
+  void _apiPostList2(Post post){
     Network.GET(Network.API_GET2 + post.id.toString(),  Network.paramsEmpty()).then((response) => {
+      print(response),
+      _showResponse(response),
+    });
+  }
+
+  void _apiPostCreate(Post post){
+    Network.POST(Network.API_POST,  Network.paramsCreate(post)).then((response) => {
+      print(response),
+      _showResponse(response),
+    });
+  }
+
+  void _apiUpdateList(Post post){
+    Network.PUT(Network.API_PUT + post.id.toString(),  Network.paramsUpdate(post)).then((response) => {
       print(response),
       _showResponse(response),
     });
@@ -35,15 +50,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  //  var post  = new Post(id: 719);
-    apiPostList();
+   var post  = new Post( employee_name: 'Abduganiyev', employee_salary: 5000, employee_age: 22 );
+    _apiPostCreate(post);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(data != null? data :"No data"),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            Center(
+              child: Text(data != null? data :"No data"),
+            ),
+          ],
+        ),
       ),
     );
   }
